@@ -1,0 +1,27 @@
+### Regresi?n log?stica binaria
+install.packages("haven")
+install.packages("car")
+
+library("haven")
+library("car")
+
+##Recodificaci?n
+CASEN$fonasarecode = recode(CASEN$s13, "1=0; 3=1; else = NA")
+table(CASEN$s13)
+table(CASEN$fonasarecode)
+
+CASEN$sexohombre = recode(CASEN$sexo, "1=1; 2=0")
+table(CASEN$sexo)
+table(CASEN$sexohombre)
+
+## Modelo de regresi?n log?stica
+modelo1<-glm(fonasarecode~sexohombre+esc2+dau, data=CASEN, family = binomial) 
+
+summary(modelo1)
+
+###Betas ODDS   
+exp(modelo1$coefficients)
+
+
+
+
