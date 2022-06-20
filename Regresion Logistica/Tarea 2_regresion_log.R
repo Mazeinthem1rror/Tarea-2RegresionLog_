@@ -16,3 +16,4 @@ modelo1<- modelo1 %>% mutate(P1_recode = case_when(P1_1_1==1 ~ "Aumentó",
                              reg_recode =if_else(enc_region ==13, 1,0))
 frq(modelo1$P1_recode)
 frq(modelo1$reg_recode)
+#holaa
