@@ -1,7 +1,11 @@
+##Tarea 2 Regresion logistica
+#Carga paquetes
 install.packages("pacman")
 pacman::p_load(haven, sjPolt, car, dplyr,magrittr, sjmisc)
+
 ##Cargar datos
-Enusc_2020 <- read_sav("C:/Users/josef/OneDrive/Documentos/R estadistica 3 y 4/input/base-usuario-17-enusc-2020-sav.sav")
+base_enusc_2020_sav <- read_sav("input/data/base-enusc-2020-sav.sav")
+
 #Explorar datos
 modelo1<-Enusc_2020 %>%
     select(P1_1_1, enc_region)
