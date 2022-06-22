@@ -1,0 +1,124 @@
+### Regresi?n log?stica binaria
+
+###Instalar paquete y BBDD ----
+install.packages("haven")
+install.packages("car")
+install.packages("ResourceSelection")
+install.packages("DescTools")
+install.packages("performance")
+install.packages("sjPlot")
+
+library("haven")
+library("car")
+library("ResourceSelection")
+library("DescTools")
+library("performance")
+library("sjPlot")
+
+options(scipen = 999) 
+CASEN<-Casen_en_Pandemia_2020_SPSS
+
+##Recodificaci?n-----
+
+##VD: Isapre o Fonasa        #Categor?a de referencia: Fonasa
+CASEN$Isaprerecode = recode(CASEN$s13, "1=0; 3=1; else = NA")
+table(CASEN$s13)
+table(CASEN$Isaprerecode)
+
+##VI: Sexo     #Categor?a de referencia: Mujer
+CASEN$sexohombre = recode(CASEN$sexo, "1=1; 2=0")
+table(CASEN$sexo)
+table(CASEN$sexohombre)
+
+##Variables con m?s de una categor?a
+##VI: Regi?n    ##Categor?a de referencia : Otra Regi?n
+CASEN$Antofagasta = recode(CASEN$region,"2=1;else=0")
+table(CASEN$region)
+table(CASEN$Antofagasta)
+
+CASEN$Valparaiso = recode(CASEN$region,"5=1; else=0")
+table(CASEN$region)
+table(CASEN$Valparaiso)
+
+
+CASEN$Araucania = recode(CASEN$region,"9=1; else=0")
+table(CASEN$region)
+table(CASEN$Araucania)
+
+CASEN$Magallanes = recode(CASEN$region,"12=1; else=0")
+table(CASEN$region)
+table(CASEN$Magallanes)
+
+##VI: Situaci?n ocupacional  #Categor?a de referencia: Otra situaci?n ocupacional
+CASEN$Desocupados = recode(CASEN$activ, "2=1; else=0")
+table(CASEN$activ)
+table(CASEN$Desocupados)
+
+CASEN$Inactivos = recode(CASEN$activ, "3=1; else=0")
+table(CASEN$activ)
+table(CASEN$Inactivos)
+
+##VI: Pobreza      #Categor?a de referencia: Otras condiciones
+CASEN$Pobresextremos = recode(CASEN$pobreza, "1=1; else=0")
+table(CASEN$pobreza)
+table(CASEN$Pobresextremos)
+
+CASEN$Pobresnoextremos = recode(CASEN$pobreza, "2=1; else=0")
+table(CASEN$pobreza)
+table(CASEN$Pobresnoextremos)
+
+## Modelo de regresi?n log?stica-----
+
+modelo0<-glm(Isaprerecode~1, data = CASEN, family = binomial)
+
+modelo1<-glm(Isaprerecode~sexohombre+esc2+dau, data=CASEN, family = binomial)
+
+modelo2<-glm(Isaprerecode~sexohombre+esc2+dau+Antofagasta+
+               Valparaiso+Araucania+Magallanes+Desocupados
+             +Inactivos+Pobresextremos+Pobresnoextremos,
+             family = binomial, data=CASEN)
+
+summary(modelo0)        ## Resumen general
+summary(modelo1)
+summary(modelo2)
+
+###Betas ODDS   
+exp(modelo0$coefficients)
+exp(modelo1$coefficients)
+exp(modelo2$coefficients)
+
+
+##Bondad de ajuste-----
+
+##Chi cuadrado y likelihood ratio
+
+### Tabla bonita, pero sin bondad de ajuste :(
+sjPlot::tab_model(list(modelo0, modelo1, modelo2), 
+                  show.ci=FALSE,
+                  show.loglik = TRUE,
+                  auto.label = TRUE,
+                  transform = 'exp', 
+                  p.style = "stars",
+                  show.p = TRUE,
+                  df.method = 'wald',
+                  dv.labels = c("Modelo nulo", "Modelo 1","Modelo 2"),
+                  string.pred = "Predictores", string.est = "??",
+                  encoding =  "UTF-8")
+
+## Porcentaje de casos predichos
+
+
+performance_pcp(modelo1)   ### PCP y LIKELIHOOD 
+performance_pcp(modelo2)
+
+
+##Hosmer y Lemeshow
+
+performance_hosmer(modelo1)
+performance_hosmer(modelo2)
+
+##Pseudo R2
+
+PseudoR2(modelo1, c("CoxSnell", "Nagel", "McFadden"))
+PseudoR2(modelo2, c("CoxSnell", "Nagel", "McFadden"))
+

@@ -3,7 +3,7 @@
     "path": "C:/Users/josef/OneDrive/Documentos/GitHub/Tarea-2RegresionLog/Regresion Logistica/Tarea 2_regresion_log.R",
     "project_path": "Tarea 2_regresion_log.R",
     "type": "r_source",
-    "hash": "600333052",
+    "hash": "3684487443",
     "contents": "",
     "dirty": false,
     "created": 1654115842265.0,
@@ -13,15 +13,15 @@
         "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "7,0",
-        "scrollLine": "0"
+        "cursorPosition": "26,0",
+        "scrollLine": "11"
     },
     "folds": "",
-    "lastKnownWriteTime": 1655862893,
+    "lastKnownWriteTime": 1655863498,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1655862893230,
+    "last_content_update": 1655863498478,
     "read_only": false,
     "read_only_alternatives": []
 }
