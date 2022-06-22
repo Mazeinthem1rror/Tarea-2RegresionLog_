@@ -2,7 +2,7 @@
 #Estudiantes: Josefa Espinoza, Mistian Herrera, Maximiliano Levenier y Macarena Pol.
 #Carga paquetes
 install.packages("pacman")
-pacman::p_load(haven, sjPolt, car, dplyr,magrittr, sjmisc, 
+pacman::p_load(haven, sjPlot, car, dplyr,magrittr, sjmisc, 
                ResourceSelection,DescTools, performance)
 
 options(scipen = 999) 
