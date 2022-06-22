@@ -91,4 +91,15 @@ sjPlot::tab_model(list(modelo_0, modelo_1, modelo_2),
 
 ##Porcentaje de casos predichos
 
+performance_pcp(modelo_1)
+performance_pcp(modelo_2)
 
+##Hosmer y Lemeshow
+
+performance_hosmer(modelo_1)
+performance_hosmer(modelo_2)
+
+##Pseudo R2
+
+PseudoR2(modelo_1, c("CoxSnell","Nagel","McFadden"))
+PseudoR2(modelo_2, c("CoxSnell","Nagel","McFadden"))
