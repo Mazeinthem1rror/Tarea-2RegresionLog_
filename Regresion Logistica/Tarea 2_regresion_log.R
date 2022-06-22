@@ -4,6 +4,8 @@
 install.packages("pacman")
 pacman::p_load(haven, sjPlot, car, dplyr,magrittr, sjmisc, 
                ResourceSelection,DescTools, performance)
+install.packages("car")
+library("car")
 
 options(scipen = 999) 
 
@@ -27,3 +29,5 @@ base_enusc_2020_sav <- read_sav("input/data/base-enusc-2020-sav.sav")
 reg_recode =if_else(enc_region ==13, 1,0)
 frq(reg_recode)
 
+Sexorecode = recode(base_enusc_2020_sav$rph_sexo, "2=1 ; 1=0")
+table(Sexorecode)
